@@ -49,7 +49,7 @@ window.renderStatistics = function (ctx, names, times) {
     if (names[i] === 'Вы') {
       ctx.fillStyle = 'rgba(255, 0, 0, 1)';
     } else {
-      var randomCalor = 'hsl(240, ' + Math.floor(Math.random() * 101) + '%, 50%)';
+      var randomCalor = 'hsl(240, ' + Math.floor(Math.random() * 100) + '%, 50%)';
       ctx.fillStyle = randomCalor;
     }
     ctx.fillRect(CLOUD_X + FONT_GAP + (BAR_WIDTH + BAR_GAP) * i, CLOUD_Y + TITLE_HEIGHT + GAP * 2 + TEXT_HEIGH + (MAX_BAR_HEIGHT - barHeight), BAR_WIDTH, barHeight);
