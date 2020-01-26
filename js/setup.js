@@ -51,25 +51,28 @@ var eyesColorList = [
 
 function randomWizard() {
   for (var i = 0; i < WIZARDS_NUMBER; i++) {
-    var randomfirstName = namesList[Math.floor(Math.random() * (namesList.length))];
-    var randomlastName = lastNameList[Math.floor(Math.random() * (lastNameList.length))];
-    var randomCoatColor = coatColoList[Math.floor(Math.random() * (coatColoList.length))];
-    var randomEyesColor = eyesColorList[Math.floor(Math.random() * (eyesColorList.length))];
+    var randomfirstName = getRandomItemFromArray(namesList);
+    var randomlastName = getRandomItemFromArray(lastNameList);
 
     wizards[i] = {
       name: rendomName(randomfirstName, randomlastName),
-      coatColor: randomCoatColor,
-      eyesColor: randomEyesColor,
+      coatColor: getRandomItemFromArray(coatColoList),
+      eyesColor: getRandomItemFromArray(eyesColorList),
     };
   }
 }
 
+function getRandomItemFromArray(arr) {
+  return arr[Math.floor(Math.random() * (arr.length))];
+}
+
+function getRandomNumber(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
 function rendomName(firstName, lastName) {
-  if (Math.random() >= 0.5) {
-    return firstName + ' ' + lastName;
-  } else {
-    return lastName + ' ' + firstName;
-  }
+  var firstFirstName = getRandomNumber(0, 1);
+  return firstFirstName ? firstName + ' ' + lastName : lastName + ' ' + firstName;
 }
 
 function renderWizard(wizard) {
