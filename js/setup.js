@@ -108,19 +108,19 @@ function onPopupEscPress(evt) {
   if (evt.key === ESC_KEY) {
     closePopup();
   }
-};
+}
 
 function openPopup() {
   setup.classList.remove('hidden');
 
   document.addEventListener('keydown', onPopupEscPress);
-};
+}
 
 function closePopup() {
   setup.classList.add('hidden');
 
   document.removeEventListener('keydown', onPopupEscPress);
-};
+}
 
 setupOpen.addEventListener('click', function () {
   openPopup();
@@ -155,8 +155,7 @@ var MIN_NAME_LENGTH = 2;
 userNameInput.addEventListener('invalid', function () {
   if (userNameInput.validity.tooShort) {
     userNameInput.setCustomValidity('Имя должно состоять минимум из ' +
-      MIN_NAME_LENGTH +
-      '-х символов'
+      MIN_NAME_LENGTH + '-х символов'
     );
   } else if (userNameInput.validity.tooLong) {
     userNameInput.setCustomValidity('Имя не должно привышать 25-ти символов');
@@ -170,15 +169,13 @@ userNameInput.addEventListener('invalid', function () {
 userNameInput.addEventListener('input', function (evt) {
   var target = evt.target;
   if (target.value.length < MIN_NAME_LENGTH) {
-    target.setCustomValidity(
-      'Имя должно состоять минимум из ' +
-      MIN_NAME_LENGTH +
-      '-х символов'
+    target.setCustomValidity('Имя должно состоять минимум из ' +
+      MIN_NAME_LENGTH + '-х символов'
     );
   } else {
     target.setCustomValidity('');
   }
-})
+});
 
 var coatColorInForm = setup.querySelector('[name="coat-color"]');
 var eyesColorInForm = setup.querySelector('[name="eyes-color"]');
@@ -223,8 +220,8 @@ function changePlayerColor(wizardPart, colorsList, partInForm, colorAtr) {
 
   if (colorAtr === 'fill') {
     wizardPart.style.fill = newColor;
-  } 
-  
+  }
+
   if (colorAtr === 'background') {
     wizardPart.style.background = newColor;
   }
