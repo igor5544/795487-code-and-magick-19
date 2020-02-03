@@ -151,6 +151,7 @@ userNameInput.addEventListener('focusout', function () {
 });
 
 var MIN_NAME_LENGTH = 2;
+var MAX_NAME_LENGTH = 25;
 
 userNameInput.addEventListener('invalid', function () {
   if (userNameInput.validity.tooShort) {
@@ -158,7 +159,9 @@ userNameInput.addEventListener('invalid', function () {
       MIN_NAME_LENGTH + '-х символов'
     );
   } else if (userNameInput.validity.tooLong) {
-    userNameInput.setCustomValidity('Имя не должно привышать 25-ти символов');
+    userNameInput.setCustomValidity('Имя не должно привышать ' +
+      MAX_NAME_LENGTH + '-ти символов'
+    );
   } else if (userNameInput.validity.valueMissing) {
     userNameInput.setCustomValidity('Обязательное поле');
   } else {
@@ -171,6 +174,10 @@ userNameInput.addEventListener('input', function (evt) {
   if (target.value.length < MIN_NAME_LENGTH) {
     target.setCustomValidity('Имя должно состоять минимум из ' +
       MIN_NAME_LENGTH + '-х символов'
+    );
+  } else if (target.value.length > MAX_NAME_LENGTH) {
+    target.setCustomValidity('Имя не должно привышать ' +
+      MAX_NAME_LENGTH + '-ти символов'
     );
   } else {
     target.setCustomValidity('');
@@ -210,13 +217,8 @@ var fireballColors = [
 function changePlayerColor(wizardPart, colorsList, partInForm, colorAtr) {
   var actuaColor = partInForm.value;
   var indexActuaColor = colorsList.indexOf(actuaColor);
-  var newColor;
-
-  if (indexActuaColor < colorsList.length - 1) {
-    newColor = colorsList[indexActuaColor + 1];
-  } else {
-    newColor = colorsList[0];
-  }
+  var maxColorIndex = colorsList.length - 1;
+  var newColor = indexActuaColor < maxColorIndex ? colorsList[indexActuaColor + 1] : colorsList[0];
 
   if (colorAtr === 'fill') {
     wizardPart.style.fill = newColor;
