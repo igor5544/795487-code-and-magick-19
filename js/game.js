@@ -2,21 +2,21 @@
 
 window.GameConstants = {
   Fireball: {
-    size: window.FIREBALL_SIZE || 24,
-    speed: window.getFireballSpeed || function (movingLeft) {
+    size: window.wizardSettings.FIREBALL_SIZE || 24,
+    speed: window.wizardSettings.getFireballSpeed || function (movingLeft) {
       return movingLeft ? 2 : 5;
     }
   },
   Wizard: {
-    speed: window.WIZARD_SPEED || 2,
-    width: window.WIZARD_WIDTH || 61,
+    speed: window.wizardSettings.WIZARD_SPEED || 2,
+    width: window.wizardSettings.WIZARD_WIDTH || 61,
     getHeight: window.getWizardHeight || function (width) {
       return 1.377 * width;
     },
-    getX: window.getWizardX || function (width) {
+    getX: window.wizardSettings.getWizardX || function (width) {
       return width / 3;
     },
-    getY: window.getWizardY || function (height) {
+    getY: window.wizardSettings.getWizardY || function (height) {
       return height - 100;
     }
   }
