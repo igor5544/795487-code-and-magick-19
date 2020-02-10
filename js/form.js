@@ -98,4 +98,44 @@
     changePlayerColor(playerFireballElement, fireballColors, fireballColorInFormElement, 'background');
   });
 
+  var formElement = setupElement.querySelector('.setup-wizard-form');
+
+  function successSave() {
+    var saveErrorElemetn = document.querySelector('.error-save-message');
+
+    if (saveErrorElemetn !== null) {
+      saveErrorElemetn.remove();
+    }
+
+    setupElement.classList.add('hidden');
+  }
+
+  function errorSave(errorMessage) {
+    var nodeElemetn = document.querySelector('.error-save-message');
+    var loadErrorElemetn = document.querySelector('.error-load-message');
+    if (nodeElemetn === null) {
+      nodeElemetn = document.createElement('div');
+      nodeElemetn.classList.add('error-save-message');
+      nodeElemetn.style = 'z-index: 100; margin: 0 auto; text-align: center; background-color: red;';
+      nodeElemetn.style.position = 'absolute';
+      nodeElemetn.style.left = 0;
+      nodeElemetn.style.right = 0;
+      nodeElemetn.style.fontSize = '30px';
+    }
+
+    if (loadErrorElemetn !== null) {
+      var loadErrorHeight = window.getComputedStyle(loadErrorElemetn).height;
+      nodeElemetn.style.top = loadErrorHeight;
+    }
+
+    nodeElemetn.textContent = errorMessage;
+    document.body.insertAdjacentElement('afterbegin', nodeElemetn);
+  }
+
+
+  formElement.addEventListener('submit', function (evt) {
+    window.backend.save(new FormData(formElement), successSave, errorSave);
+    evt.preventDefault();
+  });
+
 })();
