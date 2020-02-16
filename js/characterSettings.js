@@ -23,7 +23,7 @@
     return (HEIGHT - getWizardHeight(WIZARD_WIDTH)) - HEIGHT * 2 / 3;
   };
 
-  window.wizardSettings = {
+  window.characterSettings = {
     FIREBALL_SIZE: FIREBALL_SIZE,
     WIZARD_SPEED: WIZARD_SPEED,
     WIZARD_WIDTH: WIZARD_WIDTH,
