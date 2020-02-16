@@ -7,8 +7,55 @@
   var similarWizardTemplateElement = document.querySelector('#similar-wizard-template')
     .content
     .querySelector('.setup-similar-item');
+  var wizards = [];
+  var coatColor;
+  var eyesColor;
 
-  var WIZARDS_NUMBER = 4;
+  function getRunk(wizard) {
+    var rank = 0;
+
+    if (wizard.colorCoat === coatColor) {
+      rank += 2;
+    }
+
+    if (wizard.colorEyes === eyesColor) {
+      rank += 1;
+    }
+
+    return rank;
+  }
+
+  function namesComparator(left, right) {
+    if (left > right) {
+      return 1;
+    } else if (left < right) {
+      return -1;
+    } else {
+      return 0;
+    }
+  }
+
+  function updateWizards() {
+    renderWizardsList(wizards.sort(function (left, right) {
+      var rankDiff = getRunk(right) - getRunk(left);
+
+      if (rankDiff === 0) {
+        rankDiff = namesComparator(left.name, right.name);
+      }
+
+      return rankDiff;
+    }));
+  }
+
+  var onCoatChange = window.debounce(function (color) {
+    coatColor = color;
+    updateWizards();
+  });
+
+  var onEyesChange = window.debounce(function (color) {
+    eyesColor = color;
+    updateWizards();
+  });
 
   function renderWizard(wizard) {
     var wizardElement = similarWizardTemplateElement.cloneNode(true);
@@ -20,21 +67,22 @@
     return wizardElement;
   }
 
-  function getRandomNumber(min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-  }
-
-  function successLoad(wizards) {
+  function renderWizardsList(data) {
     var fragment = document.createDocumentFragment();
-    var firstWizard = getRandomNumber(0, wizards.length - WIZARDS_NUMBER);
-    var lastWizard = firstWizard + WIZARDS_NUMBER;
+    var takeNumebr = data.length > 4 ? 4 : data.length;
+    similarListElement.innerHTML = '';
 
-    for (var i = firstWizard; i < lastWizard; i++) {
-      fragment.appendChild(renderWizard(wizards[i]));
+    for (var i = 0; i < takeNumebr; i++) {
+      fragment.appendChild(renderWizard(data[i]));
     }
 
     similarListElement.appendChild(fragment);
     similarElemen.classList.remove('hidden');
+  }
+
+  function successLoad(data) {
+    wizards = data;
+    updateWizards();
   }
 
   function errorLoad(errorMessage) {
@@ -51,5 +99,11 @@
   }
 
   window.backend.load(successLoad, errorLoad);
+
+  window.createWizards = {
+    update: updateWizards,
+    onCoatChange: onCoatChange,
+    onEyesChange: onEyesChange
+  };
 
 })();
