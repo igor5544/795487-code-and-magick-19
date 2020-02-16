@@ -88,10 +88,14 @@
 
   playerCoatElement.addEventListener('click', function () {
     changePlayerColor(playerCoatElement, coatCalors, coatColorInFormElement, 'fill');
+    var newColor = coatColorInFormElement.value;
+    window.createWizards.onCoatChange(newColor);
   });
 
   playerEyesElement.addEventListener('click', function () {
     changePlayerColor(playerEyesElement, eyesColors, eyesColorInFormElement, 'fill');
+    var newColor = eyesColorInFormElement.value;
+    window.createWizards.onEyesChange(newColor);
   });
 
   playerFireballElement.addEventListener('click', function () {
@@ -131,7 +135,6 @@
     nodeElemetn.textContent = errorMessage;
     document.body.insertAdjacentElement('afterbegin', nodeElemetn);
   }
-
 
   formElement.addEventListener('submit', function (evt) {
     window.backend.save(new FormData(formElement), successSave, errorSave);
